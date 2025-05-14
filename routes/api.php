@@ -1,15 +1,13 @@
 <?php
 
-use App\Http\Controllers\AgendaController;
-use App\Http\Controllers\AssignmentController;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\TagihanMasterController;
-use App\Http\Controllers\TagihanPeriodeController;
-use App\Http\Controllers\PembayaranController;
-use App\Http\Controllers\WargaController;
 use App\Http\Controllers\UserTypesController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\KategoriPaketController;
 use App\Http\Controllers\ProfileUserController;
+use App\Http\Controllers\AsramaController;
 use Illuminate\Support\Facades\Route;
 use App\Exports\AssignmentsExport;
 use App\Exports\AgendasExport;
@@ -25,7 +23,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('regs')->as('regs.')->group(function () {
     Route::controller(UserController::class)->group(function () {
         Route::post('/registerStaff', 'registerStaff');
-        Route::post('/registerUser', 'registerUser');
     });
 });
 
@@ -46,14 +43,35 @@ Route::prefix('acc')->as('acc.')->controller(UserController::class)->group(funct
 });
 
 Route::prefix('roles')->middleware('auth:api')->group(function () {
-    Route::post('dest/{id}', [UserTypesController::class, 'destroy'])->name('roles.dest');
-    Route::get('trashed', [UserTypesController::class, 'trashed'])->name('roles.trashed');
-    Route::patch('{id}/restore', [UserTypesController::class, 'restore'])->name('roles.restore');
-    Route::delete('{id}/force-delete', [UserTypesController::class, 'forceDestroy'])->name('roles.forceDelete');
+    Route::post('dest/{id}', [RoleController::class, 'destroy'])->name('roles.dest');
+    Route::get('trashed', [RoleController::class, 'trashed'])->name('roles.trashed');
+    Route::patch('{id}/restore', [RoleController::class, 'restore'])->name('roles.restore');
+    Route::delete('{id}/force-delete', [RoleController::class, 'forceDestroy'])->name('roles.forceDelete');
 });
 
-Route::apiResource('roles', UserTypesController::class)->middleware('auth:api');
+Route::apiResource('roles', RoleController::class)->middleware('auth:api');
 
+// endpoint for kategori paket
+Route::prefix('categories')->middleware('auth:api')->group(function () {
+    // Route::post('dest/{id}', [KategoriPaketController::class, 'destroy'])->name('categories.dest');
+    Route::get('trashed', [KategoriPaketController::class, 'trashed'])->name('categories.trashed');
+    Route::patch('{id}/restore', [KategoriPaketController::class, 'restore'])->name('categories.restore');
+    Route::delete('{id}/force-delete', [KategoriPaketController::class, 'forceDestroy'])->name('categories.forceDelete');
+});
+
+Route::apiResource('categories', KategoriPaketController::class)->middleware('auth:api');
+
+// endpoint ASRAMA
+Route::prefix('dormitories')->middleware('auth:api')->group(function () {
+    Route::get('trashed', [AsramaController::class, 'trashed'])->name('dormitories.trashed');
+    Route::patch('{id}/restore', [AsramaController::class, 'restore'])->name('dormitories.restore');
+    Route::delete('{id}/force-delete', [AsramaController::class, 'forceDestroy'])->name('dormitories.forceDelete');
+});
+
+Route::apiResource('dormitories', AsramaController::class)->middleware('auth:api');
+
+
+// endpoint member
 Route::prefix('members')->middleware('auth:api')->group(function () {
     Route::get('trashed', [UserController::class, 'trashed'])->name('members.trashed');
     Route::patch('{id}/restore', [UserController::class, 'restore'])->name('members.restore');

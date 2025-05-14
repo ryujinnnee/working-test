@@ -47,16 +47,16 @@ class UserController extends Controller
     {
         try {
             $request->validate([
-                'name' => 'required|max:255',
-                'email' => 'required|email|unique:users',
+                'nama_user' => 'required|max:100',
+                'username' => 'required|unique:users',
+                'role' => 'required|exists:roles,id_role',
                 'password' => 'required|min:8|confirmed'
             ]);
 
-            // $userType = UserType::where('type', $request->get('user_type', 'magang'))->first();
-
             $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
+                'nama_user' => $request->nama_user,
+                'username' => $request->username,
+                'role' => $request->role,
                 'password' => Hash::make($request->password),
                 
             ]);
@@ -72,24 +72,24 @@ class UserController extends Controller
     public function loginStaff(Request $request)
     {
         try {
-            $credentials = $request->only('email', 'password');
-            $user = User::where('email', $credentials['email'])->first();
+            $credentials = $request->only('username', 'password');
 
             if (!$token = Auth::attempt($credentials)) {
-                return response()->json(['error' => 'Email atau password salah'], 401);
+                return response()->json(['error' => 'Username atau password salah'], 401);
             }
 
             return response()->json([
                 'success' => true,
                 'access_token' => $token,
-                'user' => $user,
                 'token_type' => 'bearer',
-                'expires_in' => Auth::factory()->getTTL() * 60
+                'expires_in' => Auth::factory()->getTTL() * 60,
+                'user' => Auth::user()
             ]);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Login Failed: ' . $e->getMessage()], 500);
         }
     }
+
 
 
     
@@ -218,31 +218,12 @@ class UserController extends Controller
         }
     }
 
-    public function dashboard()
-    {
-
-        // $user = auth()->user();
-        if (auth()->check()) {
-            $user = auth()->user();
-            $data = [
-                'email' => $user->email,
-                'name' => $user->name
-            ];
-            return view('welcome2', $data);
-        } else {
-            return redirect()->route('login')->with('error', 'You must be logged in to view the dashboard.');
-        }
-
-
-    }
 
 
     public function logout()
     {
         auth()->logout();
-        // Auth::guard('web')->logout();
-        // $request->session()->invalidate();
-        // $request->session()->regenerateToken();
+
 
         return response()->json(['message' => 'Successfully logged out']);
     }
@@ -440,12 +421,3 @@ class UserController extends Controller
 
 
 }
-
-
-// $request->password == null ? $request->password : $credentials['password'] = Hash::make($request->password);
-// if (!empty($request->password)) {
-//     $credentials['password'] = Hash::make($request->password);
-// } else {
-//     unset($credentials['password']);
-// }
-// $request->status == null ? $credentials['status'] = 'register' : $request->status;

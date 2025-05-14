@@ -15,10 +15,10 @@ class User extends Model implements AuthenticatableContract, JWTSubject
     use HasFactory, Authenticatable, HasApiTokens;
     use SoftDeletes;
     protected $table = 'users';
-
+    protected $primaryKey = 'id_user';
     protected $fillable = [
-        'name',
-        'email',
+        'nama_user',
+        'username',
         'password',
     ];
 
@@ -36,15 +36,7 @@ class User extends Model implements AuthenticatableContract, JWTSubject
         return $this->hasOne(ProfileUser::class);
     }
     
-    public function agendas()
-    {
-        return $this->belongsToMany(Agenda::class);
-    }
-
-    public function assignments()
-    {
-        return $this->belongsToMany(Assignment::class);
-    }
+    
 
     public function getJWTIdentifier()
     {
@@ -55,6 +47,7 @@ class User extends Model implements AuthenticatableContract, JWTSubject
     {
         return [];
     }
+
 
     
 }
