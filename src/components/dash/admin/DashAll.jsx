@@ -173,7 +173,7 @@ const DashAll = () => {
         <div className="bg-gradient-to-r from-blue-400 via-blue-400 to-palet1 text-white capitalize rounded-xl p-5 gap-3 flex items-start justify-evenly flex-col shadow-sm hover:shadow-xl transition duration-300 transform hover:scale-105">
           <div>
             <strong>
-              <span>Total Member</span>
+              <span>Total Paket</span>
             </strong>
           </div>
           <div className="ml-1">
@@ -189,7 +189,7 @@ const DashAll = () => {
         <div className="bg-gradient-to-r from-palet2 via-palet2 to-pink-200 text-white capitalize rounded-xl p-5 gap-3  flex items-start justify-evenly flex-col shadow-sm hover:shadow-xl transition duration-300 transform hover:scale-105">
           <div>
             <strong>
-              <span>assignment</span>
+              <span>Paket Belum Diambil</span>
             </strong>
           </div>
           <div className="ml-1">
@@ -204,7 +204,7 @@ const DashAll = () => {
         </div>
         <div className="bg-gradient-to-r from-pink-500 via-red-400 to-pink-300 text-white capitalize rounded-xl p-5 gap-3  flex items-start justify-evenly flex-col shadow-sm hover:shadow-xl transition duration-300 transform hover:scale-105">
           <div>
-            <span className="font-bold">Presensi</span>
+            <span className="font-bold">Paket Disita</span>
           </div>
           <div className="ml-1 w-full">
             <p className="text-lg">

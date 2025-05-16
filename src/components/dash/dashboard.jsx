@@ -206,7 +206,7 @@ const Dashboard = () => {
               </Link>
             </li>
             <li>
-              <Link to="/roles">
+              <Link to="/santri-all">
                 <a
                   href="#"
                   className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-hoper dark:hover:bg-gray-700 group focus:bg-hoper focus:dark:bg-gray-700"
@@ -280,7 +280,7 @@ const Dashboard = () => {
               </Link>
             </li>
             <li>
-              <Link to="/task">
+              <Link to="/roles">
                 <a
                   href="#"
                   className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-hoper dark:hover:bg-gray-700 group focus:bg-hoper focus:dark:bg-gray-700"
@@ -303,7 +303,7 @@ const Dashboard = () => {
               </Link>
             </li>
             <li>
-              <Link to="/profile-all">
+              <Link to="/backup">
                 <a
                   href="#"
                   className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-hoper dark:hover:bg-gray-700 group focus:bg-hoper focus:dark:bg-gray-700"

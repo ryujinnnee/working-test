@@ -59,6 +59,9 @@ import ForgotPassword from "./auth/ForgorPW.jsx";
 import ResetPassword from "./auth/ResetPW.jsx";
 import ProfileUser from "./pages/profile/ProfileUser.jsx";
 import UserAlls from "./auth/UserAlls.jsx";
+// import DB from "./components/dash/db/DB.jsx";
+import Db from "./components/dash/db/Db.jsx";
+import Santri from "./components/dash/santri/Santri.jsx";
 
 function App() {
   return (
@@ -85,7 +88,7 @@ function App() {
           <Route path="update-profile" element={<ProfileUpd />} />
           <Route path="posts" element={<PostIndex />} />
           <Route path="bank-account" element={<Bank />} />
-          <Route path="bank-accounts" element={<BAS />} />
+          {/* <Route path="bank-accounts" element={<BAS />} /> */}
           <Route path="broadcast" element={<Inp />} />
           <Route path="reimburst" element={<Rei />} />
           <Route path="reimbursement" element={<ReimStaf />} />
@@ -97,6 +100,8 @@ function App() {
           <Route path="member-all" element={<UserAlls />} />
           <Route path="order" element={<Ordr />} />
           <Route path="orders" element={<OrdrST />} />
+          <Route path="backup" element={<Db /> } />
+          <Route path="santri-all" element={<Santri /> } />
         </Route>
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
