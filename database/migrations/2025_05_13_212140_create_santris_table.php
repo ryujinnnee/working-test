@@ -20,7 +20,7 @@ return new class extends Migration
 
             $table->foreign('id_asrama')->references('id_asrama')->on('asramas')->onDelete('cascade');
 
-            $table->integer('total_paket_diterima');
+            $table->integer('total_paket_diterima')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

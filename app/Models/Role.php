@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Role extends Model
 {
     use HasFactory, SoftDeletes;
-
+    protected $primaryKey = 'id_role';
     protected $fillable = [
         'nama_role',
         'menu'

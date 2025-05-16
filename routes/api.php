@@ -8,12 +8,14 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\KategoriPaketController;
 use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\AsramaController;
+use App\Http\Controllers\SantriController;
 use Illuminate\Support\Facades\Route;
 use App\Exports\AssignmentsExport;
 use App\Exports\AgendasExport;
 use App\Exports\UsersProfileExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\AssignmentsImport;
+use App\Http\Controllers\DatabaseController;
 
     
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -43,7 +45,7 @@ Route::prefix('acc')->as('acc.')->controller(UserController::class)->group(funct
 });
 
 Route::prefix('roles')->middleware('auth:api')->group(function () {
-    Route::post('dest/{id}', [RoleController::class, 'destroy'])->name('roles.dest');
+    Route::post('dest/{id_role}', [RoleController::class, 'destroy'])->name('roles.dest');
     Route::get('trashed', [RoleController::class, 'trashed'])->name('roles.trashed');
     Route::patch('{id}/restore', [RoleController::class, 'restore'])->name('roles.restore');
     Route::delete('{id}/force-delete', [RoleController::class, 'forceDestroy'])->name('roles.forceDelete');
@@ -70,6 +72,15 @@ Route::prefix('dormitories')->middleware('auth:api')->group(function () {
 
 Route::apiResource('dormitories', AsramaController::class)->middleware('auth:api');
 
+// endpoint STUDENT
+Route::prefix('students')->middleware('auth:api')->group(function () {
+    Route::post('deletes/{nis}', [SantriController::class, 'destroy'])->name('students.deletes');
+    Route::get('trashed', [SantriController::class, 'trashed'])->name('students.trashed');
+    Route::patch('{id}/restore', [SantriController::class, 'restore'])->name('students.restore');
+    Route::delete('{id}/force-delete', [SantriController::class, 'forceDestroy'])->name('students.forceDelete');
+});
+
+Route::apiResource('students', SantriController::class)->middleware('auth:api');
 
 // endpoint member
 Route::prefix('members')->middleware('auth:api')->group(function () {
@@ -132,20 +143,10 @@ Route::prefix('task')->middleware('auth:api')->group(function () {
 
 
 
-
-
-// Route::post('agend', [AgendaController::class, 'store'])->middleware('auth:api');
-// Route::post('agend-in', [AgendaController::class, 'index'])->middleware('auth:api');
+// endpoint backup DATABASE
 
 
 
+Route::get('/backup-database', [DatabaseController::class, 'backup']);
+Route::post('/restore-database', [DatabaseController::class, 'restore']);
 
-
-
-// todo : 1. reset pw,(done)
-// todo : 2. pembayaran,
-// todo : 3. pemesanan,
-// todo : 3. presensi,
-// todo : 3. penugasan,
-// todo : 3. agenda, (done)
-// todo : 3. pemesanan,

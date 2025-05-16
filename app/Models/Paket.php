@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Paket extends Model
 {
     use HasFactory, SoftDeletes;
-
+    protected $primaryKey = 'id_paket';
     protected $fillable = [
         'nama_paket',
         'tanggal_diterima',

@@ -9,11 +9,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Santri extends Model
 {
     use HasFactory, SoftDeletes;
+    protected $primaryKey = 'NIS';       // Set primary key
+    public $incrementing = false;        // Karena NIS bukan auto increment
+    protected $keyType = 'string';
 
     protected $fillable = [
+        'NIS',
         'nama_santri',
         'alamat',
-        'asrama',
+        'id_asrama',
         'total_paket_diterima'
     ];
 
