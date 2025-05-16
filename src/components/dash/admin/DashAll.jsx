@@ -230,7 +230,7 @@ const DashAll = () => {
         {/* Diagram line/area pesanan */}
         <div className="bg-white dark:bg-slate-600 dark:border-gray-400 h-fit w-2/3 max-md:w-full rounded-xl p-4 border-2 transition duration-300 transform hover:scale-105">
           <h3 className="text-palettxt dark:text-white text-xl font-semibold">
-            Order Service
+            Grafik Paket
           </h3>
           <div className="w-full h-auto p-3 grid place-items-center dark:text-white">
             {/* <OrderStat /> */}
@@ -264,7 +264,7 @@ const DashAll = () => {
         <div className="bg-white dark:bg-slate-600 dark:border-gray-400 h-auto w-1/3 max-md:w-full rounded-xl p-4 border-2 shadow-sm transition duration-300 transform">
           <div className="flex justify-between">
             <h3 className="text-palettxt text-center dark:text-white text-xl font-semibold">
-              Info Hari ini!
+              List Paket 
             </h3>
             <div className="w-7 h-7 p-1 grid place-items-center rounded-full bg-blue-200 backdrop-blur-sm bg-opacity-55">
               <span className="m-auto text-sm">
@@ -294,7 +294,7 @@ const DashAll = () => {
                       : "text-gray-500"
                   }`}
                 >
-                  Cuti
+                  Masuk
                 </button>
                 <button
                   onClick={() => setActiveTab("izin")}
@@ -304,7 +304,7 @@ const DashAll = () => {
                       : "text-gray-500"
                   }`}
                 >
-                  Izin
+                  Keluar
                 </button>
               </div>
             </div>

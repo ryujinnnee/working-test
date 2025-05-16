@@ -72,11 +72,7 @@ const Guest2 = () => {
 
             <div className="mt-5 max-w-3xl">
               <p className="text-base text-gray-600 text-center dark:text-neutral-400 text-pretty">
-                Solusi inovatif yang dirancang untuk mempermudah pengelolaan
-                staf dan pegawai dalam organisasi. Dengan antarmuka yang ramah
-                pengguna, platform ini memungkinkan anggota untuk mengatur
-                jadwal, memantau kinerja, dan berkolaborasi dengan anggota tim
-                secara efisien.
+                Aplikasi Paket Santri adalah solusi digital komprehensif yang dirancang khusus untuk mempermudah pengelolaan kebutuhan dan aktivitas santri di lingkungan pondok pesantren. 
               </p>
             </div>
 
