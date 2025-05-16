@@ -186,7 +186,7 @@ const DashAll = () => {
             </p>
           </div>
         </div>
-        <div className="bg-gradient-to-r from-palet2 via-palet2 to-pink-200 text-white capitalize rounded-xl p-5 gap-3  flex items-start justify-evenly flex-col shadow-sm hover:shadow-xl transition duration-300 transform hover:scale-105">
+        <div className="bg-gradient-to-r from-palet2 via-palet2 to-palet3 text-white capitalize rounded-xl p-5 gap-3  flex items-start justify-evenly flex-col shadow-sm hover:shadow-xl transition duration-300 transform hover:scale-105">
           <div>
             <strong>
               <span>Paket Belum Diambil</span>
