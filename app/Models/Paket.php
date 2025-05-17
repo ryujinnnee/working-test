@@ -13,7 +13,7 @@ class Paket extends Model
     protected $fillable = [
         'nama_paket',
         'tanggal_diterima',
-        'id_kategori',
+        'kategori',
         'penerima_paket',
         'asrama',
         'pengirim_paket',
@@ -21,13 +21,26 @@ class Paket extends Model
         'status',
     ];
 
+    // public function santri()
+    // {
+    //     return $this->hasMany(Santri::class);
+    // }
     public function santri()
     {
-        return $this->hasMany(Santri::class);
+        return $this->belongsTo(Santri::class, 'penerima_paket', 'NIS', 'id_santri');
     }
 
+
+    // public function kategori()
+    // {
+    //     return $this->hasMany(Kategori_Paket::class);
+    // }
     public function kategori()
     {
-        return $this->hasMany(Kategori_Paket::class);
+        return $this->belongsTo(Kategori_Paket::class, 'kategori', 'id_kategori');
+    }
+    public function asrama()
+    {
+        return $this->belongsTo(Asrama::class, 'asrama', 'id_asrama');
     }
 }

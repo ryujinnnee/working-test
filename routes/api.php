@@ -1,6 +1,8 @@
 <?php
 
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PaketController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserTypesController;
@@ -71,6 +73,15 @@ Route::prefix('dormitories')->middleware('auth:api')->group(function () {
 });
 
 Route::apiResource('dormitories', AsramaController::class)->middleware('auth:api');
+
+// endpoint PAKET
+Route::prefix('pakets')->middleware('auth:api')->group(function () {
+    Route::get('trashed', [PaketController::class, 'trashed'])->name('pakets.trashed');
+    Route::patch('{id}/restore', [PaketController::class, 'restore'])->name('pakets.restore');
+    Route::delete('{id}/force-delete', [PaketController::class, 'forceDestroy'])->name('pakets.forceDelete');
+});
+
+Route::apiResource('pakets', PaketController::class)->middleware('auth:api');
 
 // endpoint STUDENT
 Route::prefix('students')->middleware('auth:api')->group(function () {
@@ -146,6 +157,7 @@ Route::prefix('task')->middleware('auth:api')->group(function () {
 // endpoint backup DATABASE
 
 
+Route::get('/analytic', [DashboardController::class, 'index'])->middleware('auth:api');
 
 Route::get('/backup-database', [DatabaseController::class, 'backup']);
 Route::post('/restore-database', [DatabaseController::class, 'restore']);
