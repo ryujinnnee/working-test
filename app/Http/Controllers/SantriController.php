@@ -87,7 +87,7 @@ class SantriController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'NIS' => 'sometimes|required|string|max:100',
-                'nama_santri' => 'sometimes|required|string|max:100',
+                'nama_santri' => 'sometimes|required|string|unique:santris|max:100',
                 'alamat' => 'sometimes|required|string|max:100',
                 'id_asrama' => 'sometimes|required|integer',
                 'total_paket_diterima' => 'sometimes|required|integer',

@@ -49,14 +49,12 @@ class UserController extends Controller
             $request->validate([
                 'nama_user' => 'required|max:100',
                 'username' => 'required|unique:users',
-                'role' => 'required|exists:roles,id_role',
                 'password' => 'required|min:8|confirmed'
             ]);
 
             $user = User::create([
                 'nama_user' => $request->nama_user,
                 'username' => $request->username,
-                'role' => $request->role,
                 'password' => Hash::make($request->password),
                 
             ]);
@@ -77,7 +75,8 @@ class UserController extends Controller
             if (!$token = Auth::attempt($credentials)) {
                 return response()->json(['error' => 'Username atau password salah'], 401);
             }
-
+            $user = Auth::user()->load('role');
+            
             return response()->json([
                 'success' => true,
                 'access_token' => $token,
@@ -100,8 +99,8 @@ class UserController extends Controller
             $updateAbout = User::find($id);
 
             $credentials = $request->validate([
-                'name' => 'nullable|max:255',
-                'email' => 'nullable|email|unique:users',
+                'nama_user' => 'nullable|unique:users|max:100',
+                'username' => 'nullable|unique:users',
                 // 'password' => 'nullable|min:8|confirmed',
             ]);
 
@@ -132,10 +131,8 @@ class UserController extends Controller
             $updateAbout = User::find($id);
 
             $credentials = $request->validate([
-                'name' => 'nullable|max:255',
-                'email' => 'nullable|email|unique:users',
-                'status' => 'nullable',
-                'user_type_id' => 'nullable',
+                'nama_user' => 'nullable|unique:users|max:100',
+                'username' => 'nullable|unique:users',
                 // 'password' => 'nullable|min:8|confirmed',
             ]);
 
@@ -350,13 +347,14 @@ class UserController extends Controller
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|max:255',
+                'password' => 'required|min:8|confirmed'
             ]); 
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->errors()], 422);
             }
 
             $validatedData = $validator->validated();
-            $validatedData['password'] = Hash::make('UserStaf321');
+            $validatedData['password'] = Hash::make($request->password);
 
             $type = User::create($validatedData);
             

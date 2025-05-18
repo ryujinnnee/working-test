@@ -50,15 +50,18 @@ class PaketController extends Controller
         ]);
 
         $santri = Santri::where('NIS', $validatedData['penerima_paket'])->first();
-
+        
         if (!$santri) {
             return response()->json([
                 'success' => false,
                 'message' => 'Penerima paket tidak ditemukan.',
             ], 404);
         }
+        $nisPenerima = $validatedData['penerima_paket'];
 
         $validatedData['asrama'] = $santri->id_asrama;
+        $santri = Santri::findOrFail($nisPenerima);
+        $santri->increment('total_paket_diterima'); // Increment nilai field
         
         try {
             $paket = Paket::create($validatedData);
@@ -114,9 +117,9 @@ class PaketController extends Controller
     public function update(Request $request, string $id_paket)
 {
     $rules = [
-        'nama_paket' => 'nullable|string|max:100',
+        'nama_paket' => 'sometimes|string|max:100',
         'tanggal_diterima' => 'nullable|date',
-        'kategori' => 'nullable|exists:kategori__pakets,id_kategori',
+        'kategori' => 'sometimes|exists:kategori__pakets,id_kategori',
         'penerima_paket' => 'nullable|exists:santris,NIS',
         'pengirim_paket' => 'nullable|string|max:100',
         'isi_paket_yang_disita' => 'nullable|string|max:200',
@@ -137,15 +140,12 @@ class PaketController extends Controller
         $paket = Paket::findOrFail($id_paket);
         $dataToUpdate = $validator->validated();
 
-        // Ambil id_asrama dari santri jika penerima_paket ada dan valid
         if (isset($dataToUpdate['penerima_paket'])) {
             $santri = Santri::where('NIS', $dataToUpdate['penerima_paket'])->first();
             if ($santri) {
                 $dataToUpdate['asrama'] = $santri->id_asrama;
             } else {
                 \Log::warning("Santri dengan NIS {$dataToUpdate['penerima_paket']} tidak ditemukan saat update paket {$id_paket}.");
-                // Anda mungkin ingin menangani kasus ini secara berbeda,
-                // tergantung logika aplikasi Anda.
             }
         }
 

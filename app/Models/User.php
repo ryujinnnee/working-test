@@ -22,9 +22,9 @@ class User extends Model implements AuthenticatableContract, JWTSubject
         'password',
     ];
 
-    public function roles()
+    public function role()
     {
-        return $this->hasOne(Role::class);
+        return $this->belongsTo(Role::class, 'id_role', 'id_role');
     }
     public function userTypes()
     {

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
+
 
 class RoleController extends Controller
 {
@@ -24,14 +26,18 @@ class RoleController extends Controller
 
     public function store(Request $request){
         try {
+            // dd($request->all());
             $validator = Validator::make($request->all(), [
                 'nama_role' => 'required|string|max:100',
+                'menu' => 'required|array', // Pastikan menu adalah array
             ]); 
+
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->errors()], 422);
             }
-
+            
             $validatedData = $validator->validated();
+            $validatedData['menu'] = json_encode($validatedData['menu']); // Pastikan "menu" di json_encode
             $type = Role::create($validatedData);
             
             return response()->json([

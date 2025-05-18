@@ -43,6 +43,7 @@ Route::prefix('acc')->as('acc.')->controller(UserController::class)->group(funct
     Route::get('/alls', [UserController::class, 'getAU'])->middleware('auth:api');
     Route::post('/refresh', [UserController::class, 'refresh'])->middleware('auth:api');
     Route::post('/logout', [UserController::class, 'logout'])->middleware('auth:api');
+    Route::put('/update/{id}', [UserController::class, 'update_profile'])->middleware('auth:api');
 
 });
 
@@ -54,6 +55,7 @@ Route::prefix('roles')->middleware('auth:api')->group(function () {
 });
 
 Route::apiResource('roles', RoleController::class)->middleware('auth:api');
+
 
 // endpoint for kategori paket
 Route::prefix('categories')->middleware('auth:api')->group(function () {
