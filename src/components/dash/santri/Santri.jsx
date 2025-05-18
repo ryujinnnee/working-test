@@ -146,42 +146,58 @@ const Santri = () => {
 
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white dark:bg-slate-700 p-5 rounded shadow-md w-full max-w-md space-y-3">
-            <span
-              className="text-black dark:text-white cursor-pointer float-right"
-              onClick={() => setShowModal(false)}
-            >
-              &times;
-            </span>
-            {["NIS", "nama_santri", "alamat", "total_paket_diterima"].map((field) => (
-              <input
-                key={field}
-                name={field}
-                value={formData[field]}
-                onChange={handleInputChange}
-                placeholder={field}
-                className="w-full px-3 py-2 border rounded focus:outline-none"
-              />
+          <div className="bg-white dark:bg-slate-700 p-5 rounded-lg shadow-lg w-full max-w-md space-y-4">
+            <div className="flex justify-between items-center">
+              <h2 className="text-lg font-semibold">Tambah Santri</h2>
+              <span
+                className="text-gray-600 dark:text-gray-300 cursor-pointer"
+                onClick={() => setShowModal(false)}
+              >
+                &times;
+              </span>
+            </div>
+            {["NIS", "nama_santri", "alamat"].map((field) => (
+              <div key={field} className="mt-2">
+                <label htmlFor={field} className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  {field}
+                </label>
+                <input
+                  id={field}
+                  name={field}
+                  value={formData[field]}
+                  onChange={handleInputChange}
+                  placeholder={field}
+                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                />
+              </div>
             ))}
-            <select
-              name="id_asrama"
-              value={formData.id_asrama}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border rounded focus:outline-none"
-            >
-              <option value="">Select Asrama</option>
-              {asramaList.map((asrama) => (
-                <option key={asrama.id_asrama} value={asrama.id_asrama}>
-                  {asrama.nama_asrama}
-                </option>
-              ))}
-            </select>
-            <button
-              onClick={handleCreate}
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-            >
-              Simpan
-            </button>
+            <div className="mt-2">
+              <label htmlFor="id_asrama" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                Asrama
+              </label>
+              <select
+                id="id_asrama"
+                name="id_asrama"
+                value={formData.id_asrama}
+                onChange={handleInputChange}
+                className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              >
+                <option value="">Select Asrama</option>
+                {asramaList.map((asrama) => (
+                  <option key={asrama.id_asrama} value={asrama.id_asrama}>
+                    {asrama.nama_asrama}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="mt-4">
+              <button
+                onClick={handleCreate}
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-palet2 hover:bg-palet3 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                Simpan
+              </button>
+            </div>
           </div>
         </div>
       )}

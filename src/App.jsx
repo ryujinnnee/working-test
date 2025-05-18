@@ -30,7 +30,7 @@ import { getTokenFromCookie } from "./auth/localdt.js";
 import Dash2 from "./components/dash/dash2.jsx";
 import Suhu from "./components/dash/weather/suhu.jsx";
 import Pipel from "./components/userss/Pipel.jsx";
-import Role from "./components/dash/role/Role.jsx";
+import Role from "./components/dash/more/Role.jsx";
 import Bann from "./components/dash/bann.jsx";
 import DashAll from "./components/dash/admin/DashAll.jsx";
 import Serv from "./components/serv/admin/Serv.jsx";
@@ -62,6 +62,9 @@ import UserAlls from "./auth/UserAlls.jsx";
 // import DB from "./components/dash/db/DB.jsx";
 import Db from "./components/dash/db/Db.jsx";
 import Santri from "./components/dash/santri/Santri.jsx";
+import Paket from "./components/dash/paket/Paket.jsx";
+import More from "./components/dash/More.jsx";
+import Report from "./components/dash/more/Report.jsx";
 
 function App() {
   return (
@@ -79,7 +82,7 @@ function App() {
           <Route path="izin-n-cuti" element={<IzinStaf />} />
           <Route path="weather" element={<Suhu />} />
           <Route path="people" element={<Pipel />} />
-          <Route path="roles" element={<Role />} />
+          <Route path="manage" element={<More />} />
           <Route path="profile-all" element={<ProfileUser />} />
           <Route path="ai" element={<Tools />} />
           <Route path="services" element={<Serv />} />
@@ -90,18 +93,15 @@ function App() {
           <Route path="bank-account" element={<Bank />} />
           {/* <Route path="bank-accounts" element={<BAS />} /> */}
           <Route path="broadcast" element={<Inp />} />
-          <Route path="reimburst" element={<Rei />} />
-          <Route path="reimbursement" element={<ReimStaf />} />
-          <Route path="schedule" element={<Sd />} />
-          <Route path="agenda" element={<SchedlStf />} />
-          <Route path="payment" element={<Pay />} />
-          <Route path="trolly" element={<Trolly />} />
+
           <Route path="member-detail" element={<AllDetl />} />
           <Route path="member-all" element={<UserAlls />} />
           <Route path="order" element={<Ordr />} />
           <Route path="orders" element={<OrdrST />} />
           <Route path="backup" element={<Db /> } />
           <Route path="santri-all" element={<Santri /> } />
+          <Route path="paket" element={<Paket /> } />
+          <Route path="reports" element={<Report /> } />
         </Route>
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />

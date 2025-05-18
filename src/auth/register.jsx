@@ -5,11 +5,10 @@ import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from 'react-hot-toast';
 
 const Register = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [nama_user, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [password_confirmation, setPasswordConfirmation] = useState("");
-  const [userType, setUserType] = useState("staff");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -22,11 +21,10 @@ const Register = () => {
     }
     try {
       await axios.post(`${API_URL}${ENDPOINTS.REGISTER_STAFF}`, {
-        name,
-        email,
+        nama_user,
+        username,
         password,
         password_confirmation,
-        user_type: userType,
       });
       toast.success("Registration Success");
       setTimeout(() => {
@@ -64,8 +62,8 @@ const Register = () => {
                   id="first_name"
                   name="first_name"
                   type="text"
-                  value={name.split(" ")[0]}
-                  onChange={(e) => setName(`${e.target.value} ${name.split(" ")[1] || ""}`)}
+                  value={nama_user.split(" ")[0]}
+                  onChange={(e) => setName(`${e.target.value} ${nama_user.split(" ")[1] || ""}`)}
                   required
                   className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-300 focus:outline-none sm:text-sm sm:leading-6"
                 />
@@ -80,8 +78,8 @@ const Register = () => {
                   id="last_name"
                   name="last_name"
                   type="text"
-                  value={name.split(" ")[1] || ""}
-                  onChange={(e) => setName(`${name.split(" ")[0]} ${e.target.value}`)}
+                  value={nama_user.split(" ")[1] || ""}
+                  onChange={(e) => setName(`${nama_user.split(" ")[0]} ${e.target.value}`)}
                   required
                   className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-300 focus:outline-none sm:text-sm sm:leading-6"
                 />
@@ -90,17 +88,17 @@ const Register = () => {
             </div>
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                Email address
+                Username
               </label>
               <div className="mt-2">
                 <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  id="username"
+                  name="username"
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   required
-                  autoComplete="email"
+                  autoComplete="username"
                   className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-300 focus:outline-none sm:text-sm sm:leading-6"
                 />
               </div>
@@ -142,62 +140,11 @@ const Register = () => {
             </div>
 
             <div>
-              <div className="flex items-center justify-between">
-                <label htmlFor="user_type" className="block text-sm font-medium leading-6 text-gray-900">
-                  Position
-                </label>
-                <div className="text-sm relative group">
-                  <a href="#" className="font-semibold text-blue-400 hover:text-indigo-500">
-                    What is this?
-                  </a>
-                  <div className="absolute left-1/2 transform -translate-x-1/2 mt-1 w-48 bg-gray-700 text-white text-sm rounded-md p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                    Posisi Anda Saat ini
-                  </div>
-                </div>
-              </div>
-              <div className="mt-2 flex items-center space-x-4">
-                <label className="inline-flex items-center">
-                  <input
-                    type="radio"
-                    name="userType"
-                    value="staff"
-                    checked={userType === "staff"}
-                    onChange={() => setUserType("staff")}
-                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
-                  />
-                  <span className="ml-2">Staff</span>
-                </label>
-                <label className="inline-flex items-center">
-                  <input
-                    type="radio"
-                    name="userType"
-                    value="freelancer"
-                    checked={userType === "freelancer"}
-                    onChange={() => setUserType("freelancer")}
-                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
-                  />
-                  <span className="ml-2">Freelance</span>
-                </label>
-                <label className="inline-flex items-center">
-                  <input
-                    type="radio"
-                    name="userType"
-                    value="magang"
-                    checked={userType === "magang"}
-                    onChange={() => setUserType("magang")}
-                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
-                  />
-                  <span className="ml-2">Intern</span>
-                </label>
-              </div>
-            </div>
-
-            <div>
               <button
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-blue-400 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Register
+                Daftar
               </button>
             </div>
 

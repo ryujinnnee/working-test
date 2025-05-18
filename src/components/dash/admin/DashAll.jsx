@@ -22,8 +22,8 @@ const DashAll = () => {
 
       // Fetch dashboard data again
       await fetchDashboardData();
-      await getAssignmentData();
-      await getAgendaData();
+      // await getAssignmentData();
+      // await getAgendaData();
     } catch (error) {
       console.error("Error refreshing dashboard data:", error);
     }
@@ -42,8 +42,8 @@ const DashAll = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      setDashboardData(response.data.data);
-      // console.table(response.data.data);
+      setDashboardData(response.data);
+      console.table(response.data.jumlah_total);
 
       // Save to local storage
       localStorage.setItem("dashboardData", JSON.stringify(response.data.data));
@@ -98,14 +98,14 @@ const DashAll = () => {
   
 
   useEffect(() => {
-    // fetchDashboardData();
+    fetchDashboardData();
     // getAssignmentData();
     // getAgendaData();
     // refreshDashboardData();
   }, []);
 
-  const chartData = dashboardData?.pemesanan?.completed_services
-    ? Object.values(dashboardData.pemesanan.completed_services)
+  const chartData = dashboardData?.grafik_paket_masuk
+    ? Object.values(dashboardData.grafik_paket_masuk)
     : [0, 0, 0];
 
   const chartLabels = dashboardData?.pemesanan?.completed_services
@@ -113,7 +113,7 @@ const DashAll = () => {
     : ["No Data"];
 
   const chartColors = ["#9ED9F5", "#F3A0A2", "#E05679", "#FF4560"];
-  const totalOrders = dashboardData?.pemesanan?.total_orders || 0;
+  const totalOrders = dashboardData?.jumlah_total || 0;
 
   const chartOptions = {
     series: chartData,
@@ -132,7 +132,7 @@ const DashAll = () => {
               show: true,
               total: {
                 show: true,
-                label: "Total Order",
+                label: "Total Paket",
                 formatter: function (w) {
                   return totalOrders;
                 },
@@ -179,7 +179,7 @@ const DashAll = () => {
           <div className="ml-1">
             <p className="text-lg font-bold">
               {dashboardData ? (
-                dashboardData.users.total
+                dashboardData.jumlah_total
               ) : (
                 <div className="h-4 bg-gray-300 rounded w-4 animate-pulse"></div>
               )}
@@ -195,7 +195,7 @@ const DashAll = () => {
           <div className="ml-1">
             <p className="text-lg font-bold">
               {dashboardData ? (
-                dashboardData.assignments.total
+                dashboardData.jumlah_belum_diambil
               ) : (
                 <div className="h-4 bg-gray-300 rounded w-4 animate-pulse"></div>
               )}
@@ -211,13 +211,13 @@ const DashAll = () => {
               <div className="flex justify-between gap-3">
                 <div className="text-center flex items-center gap-1">
                   <p className="font-bold">
-                    {dashboardData?.presensi?.today?.total}
+                    total
                   </p>
                   <p className="text-xs">today</p>
                 </div>
                 <div className="text-center flex items-center gap-1">
                   <p className="font-bold">
-                    {dashboardData?.presensi?.today?.terlambat}
+                    {dashboardData?.jumlah_disita}
                   </p>
                   <p className="text-xs">late</p>
                 </div>

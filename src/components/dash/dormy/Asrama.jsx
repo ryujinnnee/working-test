@@ -5,53 +5,51 @@ import { getTokenFromCookie } from "../../../auth/localdt";
 import { timeSince } from "../../../utils/timeUtils";
 import toast, { Toaster } from "react-hot-toast";
 
-const Role = () => {
-  const [roles, setRoles] = useState([]);
+const Asrama = () => {
+  const [asramas, setAsramas] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [formData, setFormData] = useState({ id_role: "", nama_role: "" }); // Gunakan id_role
+  const [formData, setFormData] = useState({ id_asrama: "", nama_asrama: "", gedung: "" });
   const [showModal, setShowModal] = useState(false);
-
   const token = getTokenFromCookie();
 
   useEffect(() => {
-    localStorage.removeItem("rolesCache");
-    fetchRoles();
+    localStorage.removeItem("asramaCache");
+    fetchAsramas();
   }, []);
 
-  const fetchRoles = async () => {
-    const cachedRoles = localStorage.getItem("rolesCache");
+  const fetchAsramas = async () => {
+    const cachedAsramas = localStorage.getItem("asramaCache");
 
-    if (cachedRoles) {
-      const { data, timestamp } = JSON.parse(cachedRoles);
-
+    if (cachedAsramas) {
+      const { data, timestamp } = JSON.parse(cachedAsramas);
       const cacheDuration = 5 * 60 * 1000;
       const now = new Date().getTime();
 
       if (now - timestamp < cacheDuration) {
-        setRoles(data);
+        setAsramas(data);
         setLoading(false);
         return;
       }
     }
 
     try {
-      const response = await axios.get(`${API_URL}${ENDPOINTS.ROLEGET}`, {
+      const response = await axios.get(`${API_URL}${ENDPOINTS.DORMGET}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      const rolesData = response.data.Role;
+      const asramasData = response.data.asramas; // Asumsi response memiliki key 'asramas'
 
-      setRoles(rolesData);
+      setAsramas(asramasData);
       setLoading(false);
 
       localStorage.setItem(
-        "rolesCache",
-        JSON.stringify({ data: rolesData, timestamp: new Date().getTime() })
+        "asramaCache",
+        JSON.stringify({ data: asramasData, timestamp: new Date().getTime() })
       );
     } catch (error) {
-      toast.error("Error fetching roles:", error);
-      console.error("Error fetching roles:", error);
+      toast.error("Error fetching asramas:", error);
+      console.error("Error fetching asramas:", error);
     }
   };
 
@@ -63,7 +61,7 @@ const Role = () => {
   const handleCreate = async () => {
     try {
       const response = await axios.post(
-        `${API_URL}${ENDPOINTS.ROLESTO}`,
+        `${API_URL}${ENDPOINTS.DORMPOST}`, // Asumsi ada endpoint DORMPOST
         formData,
         {
           headers: {
@@ -71,73 +69,62 @@ const Role = () => {
           },
         }
       );
-      setRoles([...roles, response.data]);
-      setFormData({ id_role: "", nama_role: "" }); // Gunakan id_role
+      setAsramas([...asramas, response.data.data]); // Asumsi response memiliki key 'data'
+      setFormData({ id_asrama: "", nama_asrama: "", gedung: "" });
       setShowModal(false);
-
-      localStorage.removeItem("rolesCache");
-
-      fetchRoles();
+      localStorage.removeItem("asramaCache");
+      fetchAsramas();
+      toast.success("Created Asrama Success");
     } catch (error) {
-      console.error("Error creating role:", error);
+      toast.error("Error creating asrama:", error);
+      console.error("Error creating asrama:", error);
     }
   };
 
-  const handleUpdate = async (id_role, updatedRole) => { // Terima id_role
+  const handleUpdate = async (id_asrama, updatedAsrama) => {
     try {
       await axios.put(
-        `${API_URL}${ENDPOINTS.TEPPUT.replace("{id}", id_role)}`,
-        updatedRole,
+        `${API_URL}${ENDPOINTS.DORMPUT.replace("{id}", id_asrama)}`, // Asumsi ada endpoint DORMPUT
+        updatedAsrama,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
-
-      localStorage.removeItem("rolesCache");
-
-      fetchRoles();
-      toast.success("Update Success");
+      localStorage.removeItem("asramaCache");
+      fetchAsramas();
+      toast.success("Update Asrama Success");
     } catch (error) {
-      toast.error("Error updating roles:", error);
-      console.error("Error updating roles:", error);
+      toast.error("Error updating asrama:", error);
+      console.error("Error updating asrama:", error);
     }
   };
 
-  const deleteService = async (id_role, deletee) => { // Terima id_role
+  const deleteAsrama = async (id_asrama) => {
     try {
-      await axios.post(
-        `${API_URL}${ENDPOINTS.TEPDELETE.replace("{id}", id_role)}`,
-        deletee,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      localStorage.removeItem("rolesCache");
-
-      fetchRoles();
-      toast.success("Data Deleted");
+        await axios.delete(
+            `${API_URL}${ENDPOINTS.DORMDELETE.replace("{id}", id_asrama)}`,
+            { headers: { Authorization: `Bearer ${token}` } }
+          );
+      localStorage.removeItem("asramaCache");
+      fetchAsramas();
+      toast.success("Asrama Deleted");
     } catch (error) {
-      toast.error("Error deleting role:", error);
-      console.error("Error deleting role:", error);
+      toast.error("Error deleting asrama:", error);
+      console.error("Error deleting asrama:", error);
     }
   };
 
   return (
     <div className="container w-full mx-auto px-4">
       <div className="hsdfpkxxasda flex justify-between my-3">
-        <h2 className="text-3xl font-semibold m-0 p-0 dark:text-white">All Roles</h2>
+        <h2 className="text-3xl font-semibold m-0 p-0 dark:text-white">Data Asrama</h2>
         <button
-          onClick={() => {
-            setShowModal(true);
-          }}
+          onClick={() => setShowModal(true)}
           className="bg-gradient-to-r from-blue-500 to-palet1 text-white px-5 py-2 rounded-full shadow-lg hover:scale-105 transition-transform duration-200"
         >
-          New Role
+          Tambah Asrama
         </button>
       </div>
 
@@ -149,14 +136,23 @@ const Role = () => {
             </span>
             <input
               type="text"
-              name="nama_role"
+              name="nama_asrama"
               required
-              value={formData.nama_role}
+              value={formData.nama_asrama}
               onChange={handleInputChange}
-              placeholder="Type"
-              className="mr-2 dark:focus:outline-none"
+              placeholder="Nama Asrama"
+              className="mr-2 dark:focus:outline-none w-full py-2 px-3 border rounded dark:bg-slate-700 dark:text-white"
             />
-            <button onClick={handleCreate} type="submit" className="bg-primary text-white px-4 py-2 rounded hover:translate-y-1 transition">
+            <input
+              type="text"
+              name="gedung"
+              required
+              value={formData.gedung}
+              onChange={handleInputChange}
+              placeholder="Gedung"
+              className="mr-2 dark:focus:outline-none w-full py-2 px-3 border rounded dark:bg-slate-700 dark:text-white mt-2"
+            />
+            <button onClick={handleCreate} type="submit" className="bg-primary text-white px-4 py-2 rounded hover:translate-y-1 transition mt-3">
               Buat
             </button>
           </div>
@@ -167,10 +163,13 @@ const Role = () => {
           <thead className="bg-gray-100 dark:bg-gray-500">
             <tr>
               <th className="px-4 py-2 text-left text-sm font-medium text-gray-600 dark:text-white">
-                Id
+                ID
               </th>
               <th className="px-6 py-2 text-left text-sm font-medium text-gray-600 dark:text-white">
-                Role
+                Nama Asrama
+              </th>
+              <th className="px-6 py-2 text-left text-sm font-medium text-gray-600 dark:text-white">
+                Gedung
               </th>
               <th className="px-4 py-2 text-left text-sm font-medium text-gray-600 dark:text-white">
                 Modified
@@ -192,6 +191,9 @@ const Role = () => {
                       <div className="h-2 w-3 bg-gray-300 rounded"></div>
                     </td>
                     <td className="px-6 py-3 text-sm text-gray-700 animate-pulse">
+                      <div className="h-2 w-16 bg-gray-300 rounded"></div>
+                    </td>
+                    <td className="px-6 py-3 text-sm text-gray-700 animate-pulse">
                       <div className="h-2 w-7 bg-gray-300 rounded"></div>
                     </td>
                     <td className="px-4 py-3 text-sm text-gray-700 animate-pulse">
@@ -204,40 +206,58 @@ const Role = () => {
                 ))}
               </>
             ) : (
-              roles.map((role) => (
-                <tr key={role.id_role}
+              asramas.map((asrama) => (
+                <tr key={asrama.id_asrama}
                   className="hover:bg-gray-100 dark:hover:bg-gray-600 transition duration-200"
                 >
-                  <td className="px-4 py-3 w-11 text-sm text-gray-700 dark:text-white">{role.id_role}</td>
+                  <td className="px-4 py-3 w-11 text-sm text-gray-700 dark:text-white">{asrama.id_asrama}</td>
                   <td className="px-6 py-4 text-sm text-gray-700 dark:text-white">
                     <input
-                      className="focus:outline-none"
+                      className="focus:outline-none dark:bg-transparent dark:text-white"
                       type="text"
-                      value={role.nama_role}
+                      value={asrama.nama_asrama}
                       onBlur={(e) =>
-                        handleUpdate(role.id_role, { // Gunakan role.id_role
-                          ...role,
-                          nama_role: e.target.value,
+                        handleUpdate(asrama.id_asrama, {
+                          ...asrama,
+                          nama_asrama: e.target.value,
                         })
                       }
                       onChange={(e) => {
-                        const updateRolees = roles.map((s) =>
-                          s.id_role === role.id_role ? { ...s, nama_role: e.target.value } : s // Gunakan s.id_role dan role.id_role
+                        const updatedAsramas = asramas.map((a) =>
+                          a.id_asrama === asrama.id_asrama ? { ...a, nama_asrama: e.target.value } : a
                         );
-                        setRoles(updateRolees);
+                        setAsramas(updatedAsramas);
+                      }}
+                    />
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-700 dark:text-white">
+                    <input
+                      className="focus:outline-none dark:bg-transparent dark:text-white"
+                      type="text"
+                      value={asrama.gedung}
+                      onBlur={(e) =>
+                        handleUpdate(asrama.id_asrama, {
+                          ...asrama,
+                          gedung: e.target.value,
+                        })
+                      }
+                      onChange={(e) => {
+                        const updatedAsramas = asramas.map((a) =>
+                          a.id_asrama === asrama.id_asrama ? { ...a, gedung: e.target.value } : a
+                        );
+                        setAsramas(updatedAsramas);
                       }}
                     />
                   </td>
                   <td className="px-4 py-4 text-xs text-gray-700 dark:text-white">
-                    {role.updated_at
-                      ? timeSince(new Date(role.updated_at))
+                    {asrama.updated_at
+                      ? timeSince(new Date(asrama.updated_at))
                       : "Unknown"}
                   </td>
                   <td className="px-4 py-4 text-sm text-gray-700 dark:text-white">
                     <button
-                      onClick={() => deleteService(role.id_role)} // Gunakan role.id_role
-                      disabled={role.id_role >= 1 && role.id_role <= 3} // Gunakan role.id_role
-                      className={role.id_role >= 1 && role.id_role <= 3 ? "cursor-not-allowed text-red-500 hover:text-red-700 dark:text-red-300 dark:hover:text-red-500" : "text-red-500 hover:text-red-700 dark:text-red-300 dark:hover:text-red-500"}
+                      onClick={() => deleteAsrama(asrama.id_asrama)}
+                      className="text-red-500 hover:text-red-700 dark:text-red-300 dark:hover:text-red-500"
                     >
                       Delete
                     </button>
@@ -253,4 +273,4 @@ const Role = () => {
   );
 };
 
-export default Role;
+export default Asrama;

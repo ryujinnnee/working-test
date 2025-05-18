@@ -66,9 +66,6 @@ const Profile = () => {
           setUserData({
             name: userDetails.name || "",
             email: userDetails.email || "",
-            profile_photo: userDetails.profile_photo || "",
-            cover_photo: userDetails.cover_photo || "",
-            email_verified_at: userDetails.email_verified_at || "",
           });
 
           localStorage.setItem(
@@ -96,7 +93,7 @@ const Profile = () => {
   return (
     <div className="grid place-items-center" style={{ height: "80dvh" }}>
       <div className="bg-gray-200 dark:bg-gray-600 rounded-lg shadow-xl dark:text-white w-80">
-        <div className="flex flex-col items-center mb-4">
+        <div className="flex flex-col items-center mb-1">
           <div className="outerimage w-full relative">
             <img
               src={
@@ -118,17 +115,17 @@ const Profile = () => {
             />
           </div>
           <p className="text-xl font-semibold mt-2 capitalize">
-            {userData.name}
+            {userData.nama_user}
           </p>
           <p className={`text-sm ${userData.email_verified_at ? "text-gray-800 dark:text-white" : "text-red-500 dark:text-red-500"}`}>
-            {userData.email}
+            {userData.username}
           </p>
           
           
         </div>
 
-        <div className="w-full mt-3 px-6 py-6 flex justify-between">
-          <button
+        <div className="w-full px-6 py-3 flex justify-between">
+          {/* <button
             className="element-pertama flex px-4 py-2 text-white bg-gradient-to-r from-palet3 to-palet2 rounded-md hover:bg-blue-600 transition duration-200"
             onClick={() => navigate("/update-profile")}
           >
@@ -143,10 +140,10 @@ const Profile = () => {
               <path d="M13.5 10.5h-9v-9h9v9z" />
             </svg>
             Edit Profile
-          </button>
+          </button> */}
           <button
             id="element-kedua"
-            className="flex px-4 py-2 text-white bg-red-500 hover:translate-y-1 rounded-md hover:bg-red-600 transition duration-200"
+            className="flex w-full text-center items-center justify-center px-4 py-2 text-white bg-red-500 hover:translate-y-1 rounded-md hover:bg-red-600 transition duration-200"
             onClick={() => setShowModal(true)}
           >
             <svg

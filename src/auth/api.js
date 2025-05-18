@@ -1,10 +1,14 @@
 // api.js
-export const API_URL = 'https://dbtest.tahmidev.my.id/api'; 
+export const API_URL = 'http://127.0.0.1:8000/api'; 
 // export const API_URL = 'https://dbsf.friendz.id/api'; 
-export const URL_BASE = 'https://dbtest.tahmidev.my.id'; 
+export const URL_BASE = 'http://127.0.0.1:8000'; 
 
 export const ENDPOINTS = {
   USER: '/user',
+  USERALL: '/acc/alls',
+  // USERPOST: '/regs/registerStaff',
+  USERPUT: '/acc/update/{id}',
+  ANALYS: '/analytic',
   LOGIN_STAFF: '/auth/loginStaff',
   LOGOUT: '/acc/logout',
   REGISTER_STAFF: '/regs/registerStaff',
@@ -23,9 +27,19 @@ export const ENDPOINTS = {
   BEKDB: '/backup-database',
   RESDB: '/restore-database',
   DORMGET: '/dormitories',
+  DORMPUT: '/dormitories/{id}',
+  DORMPOST: '/dormitories',
+  DORMDELETE: '/dormitories/{id}',
   SANTRIGET: '/students',
   SANTRIPUT: '/students/{nis}',
   SANTRIPOST: '/students',
   SANTRIDELETE: '/students/deletes/{nis}',
+  KATEGORIPAKETGET: '/categories',
+  PAKETGET: '/pakets',
+  PAKETPUT: '/pakets/{id}',
+  PAKETPOST: '/pakets',
+  PAKETDELETE: '/pakets/{id}',
+  TRASHPAKET: '/pakets/trashed',
+
 };
 

@@ -10,11 +10,13 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [userData, setUserData] = useState([]);
+  const [roleData, setRoleData] = useState([]);
   const [rememberUsername, setRememberUsername] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { setIsLogin } = useContext(AuthContext);
+  
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     const savedUsername = localStorage.getItem("username");
     if (savedUsername) {
@@ -45,7 +47,12 @@ const Login = () => {
 
       toast.success("Login successful!");
       setToken(response.data.access_token);
-      setUserData(response.data.user)
+      setUserData(response.data.user);
+      
+      const rolee = response.data.user.role;
+      setRoleData(rolee);
+      localStorage.setItem("role", JSON.stringify(rolee));
+      
       setIsLogin(true);
       
       setTimeout(() => navigate("/dashboard"), 1500);
