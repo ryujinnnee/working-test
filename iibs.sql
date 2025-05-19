@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 16, 2025 at 01:49 AM
--- Server version: 8.3.0
--- PHP Version: 8.2.28
+-- Waktu pembuatan: 19 Bulan Mei 2025 pada 03.50
+-- Versi server: 8.3.0
+-- Versi PHP: 8.2.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `asramas`
+-- Struktur dari tabel `asramas`
 --
 
 CREATE TABLE `asramas` (
@@ -37,18 +37,21 @@ CREATE TABLE `asramas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `asramas`
+-- Dumping data untuk tabel `asramas`
 --
 
 INSERT INTO `asramas` (`id_asrama`, `nama_asrama`, `gedung`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'utsman', '2', '2025-05-14 17:01:39', '2025-05-14 17:01:39', NULL),
 (2, 'abu bakar', '1', '2025-05-14 17:01:52', '2025-05-14 17:01:52', NULL),
-(3, 'umar', '3', '2025-05-14 17:02:07', '2025-05-14 17:02:07', NULL);
+(3, 'umar', '3', '2025-05-14 17:02:07', '2025-05-14 17:02:07', NULL),
+(4, 'ali', '4', '2025-05-17 09:06:34', '2025-05-17 09:06:34', NULL),
+(5, 'abu huraira', '5', '2025-05-17 09:07:42', '2025-05-17 09:07:42', NULL),
+(6, 'tesss', '9', '2025-05-18 07:30:48', '2025-05-18 07:30:48', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `failed_jobs`
+-- Struktur dari tabel `failed_jobs`
 --
 
 CREATE TABLE `failed_jobs` (
@@ -64,7 +67,7 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kategori__pakets`
+-- Struktur dari tabel `kategori__pakets`
 --
 
 CREATE TABLE `kategori__pakets` (
@@ -76,7 +79,7 @@ CREATE TABLE `kategori__pakets` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `kategori__pakets`
+-- Dumping data untuk tabel `kategori__pakets`
 --
 
 INSERT INTO `kategori__pakets` (`id_kategori`, `nama_kategori`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -89,7 +92,7 @@ INSERT INTO `kategori__pakets` (`id_kategori`, `nama_kategori`, `created_at`, `u
 -- --------------------------------------------------------
 
 --
--- Table structure for table `migrations`
+-- Struktur dari tabel `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -99,7 +102,7 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `migrations`
+-- Dumping data untuk tabel `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -116,7 +119,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pakets`
+-- Struktur dari tabel `pakets`
 --
 
 CREATE TABLE `pakets` (
@@ -127,17 +130,27 @@ CREATE TABLE `pakets` (
   `penerima_paket` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `asrama` bigint UNSIGNED NOT NULL,
   `pengirim_paket` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `isi_paket_yang_disita` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `isi_paket_yang_disita` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` enum('diambil','Belum Diambil') COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data untuk tabel `pakets`
+--
+
+INSERT INTO `pakets` (`id_paket`, `nama_paket`, `tanggal_diterima`, `kategori`, `penerima_paket`, `asrama`, `pengirim_paket`, `isi_paket_yang_disita`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'kiriman', '2025-05-18', 4, 'tr120', 2, 'ibu', NULL, 'Belum Diambil', '2025-05-18 00:57:26', '2025-05-18 00:57:26', NULL),
+(2, 'hemat', '2025-05-19', 1, 'tr124', 2, 'ayah', 'nope', 'Belum Diambil', '2025-05-18 02:11:12', '2025-05-18 02:11:12', NULL),
+(3, 'kiko', '2025-05-19', 3, 'tr111', 1, 'ibu', 'df', 'diambil', '2025-05-19 03:28:04', '2025-05-19 03:28:04', NULL),
+(4, 'kenzeler', '2025-05-19', 1, 'tr120', 2, 'ibu', NULL, 'Belum Diambil', '2025-05-19 03:42:02', '2025-05-19 03:42:02', NULL);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `password_reset_tokens`
+-- Struktur dari tabel `password_reset_tokens`
 --
 
 CREATE TABLE `password_reset_tokens` (
@@ -149,7 +162,7 @@ CREATE TABLE `password_reset_tokens` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `personal_access_tokens`
+-- Struktur dari tabel `personal_access_tokens`
 --
 
 CREATE TABLE `personal_access_tokens` (
@@ -168,35 +181,33 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `roles`
+-- Struktur dari tabel `roles`
 --
 
 CREATE TABLE `roles` (
   `id_role` bigint UNSIGNED NOT NULL,
   `nama_role` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `menu` text COLLATE utf8mb4_unicode_ci,
+  `menu` json DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `roles`
+-- Dumping data untuk tabel `roles`
 --
 
 INSERT INTO `roles` (`id_role`, `nama_role`, `menu`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'administrator', NULL, NULL, NULL, NULL),
-(2, 'staff', NULL, NULL, NULL, NULL),
-(3, 'user', NULL, NULL, NULL, NULL),
-(4, 'sertertxxxx', NULL, '2025-05-15 15:22:42', '2025-05-16 01:28:29', '2025-05-16 01:28:29'),
-(5, 'hore', NULL, '2025-05-15 15:36:16', '2025-05-15 16:09:18', '2025-05-15 16:09:18'),
-(6, 'erere', NULL, '2025-05-15 15:37:57', '2025-05-15 16:07:30', '2025-05-15 16:07:30'),
-(7, 'ererer', NULL, '2025-05-16 01:28:37', '2025-05-16 01:28:37', NULL);
+(1, 'administrator', '[\"settings\", \"laporan\", \"paket\", \"dashboard\", \"user & management\", \"santri\"]', NULL, '2025-05-18 16:54:37', NULL),
+(2, 'staff', '[\"dashboard\", \"paket\", \"user & management\", \"santri\"]', NULL, '2025-05-19 03:10:50', NULL),
+(3, 'user', '[\"dashboard\"]', NULL, '2025-05-18 17:08:47', NULL),
+(24, 'Admin', '[\"user & management\", \"paket\", \"laporan\", \"settings\"]', '2025-05-18 15:00:45', '2025-05-18 17:08:51', '2025-05-18 17:08:51'),
+(25, 'sfsfddfaaa', '[\"settings\", \"laporan\", \"paket\", \"dashboard\"]', '2025-05-18 15:01:03', '2025-05-18 17:08:52', '2025-05-18 17:08:52');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `santris`
+-- Struktur dari tabel `santris`
 --
 
 CREATE TABLE `santris` (
@@ -211,23 +222,22 @@ CREATE TABLE `santris` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `santris`
+-- Dumping data untuk tabel `santris`
 --
 
 INSERT INTO `santris` (`NIS`, `nama_santri`, `alamat`, `id_asrama`, `total_paket_diterima`, `created_at`, `updated_at`, `deleted_at`) VALUES
-('1234123', 'siapa', 'safsakfk', 3, 5, '2025-05-16 01:06:32', '2025-05-16 01:14:17', '2025-05-16 01:14:17'),
-('abc123fer', 'anak baik', 'jl maju terus', 2, 0, '2025-05-15 11:38:20', '2025-05-15 11:38:20', NULL),
-('abc123ferrrrs', 'anak baiks', 'jl maju terusss', 2, 0, '2025-05-15 11:39:30', '2025-05-15 11:39:30', NULL),
-('abcd123', 'sfsdfsd', 'sdddfs', 3, 2, '2025-05-16 01:16:21', '2025-05-16 01:25:36', '2025-05-16 01:25:36'),
-('akowkwo123', 'anak baiks', 'jl maju terusss', 2, 0, '2025-05-15 11:43:08', '2025-05-16 01:05:13', '2025-05-16 01:05:13'),
-('dsfsdf', 'dfdfdf ayamdfd', 'dfdfds', 1, 1, '2025-05-16 01:16:45', '2025-05-16 01:23:55', '2025-05-16 01:23:55'),
-('sertyu', 'aswok', 'alamat sm', 1, 1, '2025-05-16 01:41:59', '2025-05-16 01:41:59', NULL),
-('treter123', 'sa sa', 'Tokyo', 2, 3, '2025-05-16 01:09:25', '2025-05-16 01:15:40', '2025-05-16 01:15:40');
+('tr111', 'budi doremi', 'jl maju', 1, 1, '2025-05-18 02:47:23', '2025-05-19 03:28:04', NULL),
+('tr120', 'budi 1', 'jl maju terusss', 2, 2, '2025-05-15 11:39:30', '2025-05-19 03:42:02', NULL),
+('tr123', 'siapa', 'safsakfk', 3, 0, '2025-05-16 01:06:32', '2025-05-16 01:14:17', '2025-05-16 01:14:17'),
+('tr124', 'budi 2', 'jl maju terus', 2, 1, '2025-05-15 11:38:20', '2025-05-18 02:53:23', NULL),
+('tr125', 'sfsdfsd', 'sdddfs', 3, 0, '2025-05-16 01:16:21', '2025-05-16 01:25:36', '2025-05-16 01:25:36'),
+('tr126', 'anak baiks', 'jl maju terusss', 2, 0, '2025-05-15 11:43:08', '2025-05-16 01:05:13', '2025-05-16 01:05:13'),
+('tr128', 'budi 345', 'alamat sm', 1, 0, '2025-05-16 01:41:59', '2025-05-19 03:12:28', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
@@ -242,43 +252,45 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
 INSERT INTO `users` (`id_user`, `nama_user`, `username`, `password`, `id_role`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'shin ryujin', 'ryujine', '$2y$10$CtLuuoZZb44vuevRJp8LdOkrS2MihXKcJiXhxvAZ.8ti9Lv1ohvri', 1, NULL, NULL, NULL);
+(1, 'shin ryujin', 'ryujine', '$2y$10$CtLuuoZZb44vuevRJp8LdOkrS2MihXKcJiXhxvAZ.8ti9Lv1ohvri', 1, NULL, NULL, NULL),
+(2, 'jang wonyoung', 'user2', '$2y$10$4hkQwf4KuAZBvsSaCSP9VOnueYhxG.EWJcu4Ur7.HgoL2wok2FC0y', 2, '2025-05-18 00:46:05', '2025-05-18 00:46:05', NULL),
+(3, 'jihyo twice', 'user3', '$2y$10$F8Fjc.RmTY5CWGCViXP/C.w.UMEacWsfyPJI3lvgTNJdzsqitzCp2', 2, '2025-05-18 06:05:50', '2025-05-18 06:05:50', NULL);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `asramas`
+-- Indeks untuk tabel `asramas`
 --
 ALTER TABLE `asramas`
   ADD PRIMARY KEY (`id_asrama`);
 
 --
--- Indexes for table `failed_jobs`
+-- Indeks untuk tabel `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
--- Indexes for table `kategori__pakets`
+-- Indeks untuk tabel `kategori__pakets`
 --
 ALTER TABLE `kategori__pakets`
   ADD PRIMARY KEY (`id_kategori`);
 
 --
--- Indexes for table `migrations`
+-- Indeks untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `pakets`
+-- Indeks untuk tabel `pakets`
 --
 ALTER TABLE `pakets`
   ADD PRIMARY KEY (`id_paket`),
@@ -287,13 +299,13 @@ ALTER TABLE `pakets`
   ADD KEY `pakets_asrama_foreign` (`asrama`);
 
 --
--- Indexes for table `password_reset_tokens`
+-- Indeks untuk tabel `password_reset_tokens`
 --
 ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
 
 --
--- Indexes for table `personal_access_tokens`
+-- Indeks untuk tabel `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   ADD PRIMARY KEY (`id`),
@@ -301,20 +313,20 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
--- Indexes for table `roles`
+-- Indeks untuk tabel `roles`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`id_role`);
 
 --
--- Indexes for table `santris`
+-- Indeks untuk tabel `santris`
 --
 ALTER TABLE `santris`
   ADD PRIMARY KEY (`NIS`),
   ADD KEY `santris_id_asrama_foreign` (`id_asrama`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id_user`),
@@ -322,63 +334,63 @@ ALTER TABLE `users`
   ADD KEY `users_id_role_foreign` (`id_role`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `asramas`
+-- AUTO_INCREMENT untuk tabel `asramas`
 --
 ALTER TABLE `asramas`
-  MODIFY `id_asrama` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_asrama` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `failed_jobs`
+-- AUTO_INCREMENT untuk tabel `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `kategori__pakets`
+-- AUTO_INCREMENT untuk tabel `kategori__pakets`
 --
 ALTER TABLE `kategori__pakets`
   MODIFY `id_kategori` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `migrations`
+-- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `pakets`
+-- AUTO_INCREMENT untuk tabel `pakets`
 --
 ALTER TABLE `pakets`
-  MODIFY `id_paket` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_paket` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `personal_access_tokens`
+-- AUTO_INCREMENT untuk tabel `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `roles`
+-- AUTO_INCREMENT untuk tabel `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id_role` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_role` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_user` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `pakets`
+-- Ketidakleluasaan untuk tabel `pakets`
 --
 ALTER TABLE `pakets`
   ADD CONSTRAINT `pakets_asrama_foreign` FOREIGN KEY (`asrama`) REFERENCES `asramas` (`id_asrama`),
@@ -386,13 +398,13 @@ ALTER TABLE `pakets`
   ADD CONSTRAINT `pakets_penerima_paket_foreign` FOREIGN KEY (`penerima_paket`) REFERENCES `santris` (`NIS`);
 
 --
--- Constraints for table `santris`
+-- Ketidakleluasaan untuk tabel `santris`
 --
 ALTER TABLE `santris`
   ADD CONSTRAINT `santris_id_asrama_foreign` FOREIGN KEY (`id_asrama`) REFERENCES `asramas` (`id_asrama`) ON DELETE CASCADE;
 
 --
--- Constraints for table `users`
+-- Ketidakleluasaan untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `users_id_role_foreign` FOREIGN KEY (`id_role`) REFERENCES `roles` (`id_role`) ON DELETE CASCADE;
