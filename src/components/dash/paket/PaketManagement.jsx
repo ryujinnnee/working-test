@@ -26,9 +26,11 @@ const PaketManagement = () => {
   const token = getTokenFromCookie();
   const [asramaList, setAsramaList] = useState([]);
   const [kategoriList, setKategoriList] = useState([]);
+  const [santriList, setSantriList] = useState([]);
 
   useEffect(() => {
     fetchPaket();
+    fetchSantri()
     getAsrama();
     getKategoriPaket();
     fetchTrashs();
@@ -43,6 +45,38 @@ const PaketManagement = () => {
     } catch (error) {
       console.error("Error fetching asrama:", error);
       toast.error("Gagal mengambil data asrama");
+    }
+  };
+
+  const fetchSantri = async () => {
+    const cached = localStorage.getItem("santriCache");
+
+    if (cached) {
+      const { data, timestamp } = JSON.parse(cached);
+      const cacheDuration = 5 * 60 * 1000;
+      const now = new Date().getTime();
+
+      if (now - timestamp < cacheDuration) {
+        setSantriList(data);
+        setLoading(false);
+        return;
+      }
+    }
+
+    try {
+      const response = await axios.get(`${API_URL}${ENDPOINTS.SANTRIGET}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const data = response.data.data;
+      setSantriList(data);
+      setLoading(false);
+      localStorage.setItem(
+        "santriCache",
+        JSON.stringify({ data, timestamp: new Date().getTime() })
+      );
+    } catch (error) {
+      toast.error("Error fetching santri");
+      console.error(error);
     }
   };
 
@@ -189,7 +223,7 @@ const PaketManagement = () => {
             </span>
             {[
               "nama_paket",
-              "penerima_paket",
+              // "penerima_paket",
               "pengirim_paket",
               "isi_paket_yang_disita",
             ].map((field) => (
@@ -202,6 +236,32 @@ const PaketManagement = () => {
                 className="w-full px-3 py-2 border rounded focus:outline-none"
               />
             ))}
+            <label className="pt-2" htmlFor="penerima_paket">
+              Penerima Paket
+            </label>
+            <input
+              type="text"
+              name="penerima_paket"
+              value={formData.penerima_paket}
+              onChange={handleInputChange}
+              placeholder="Cari Nama Santri"
+              className="w-full px-3 py-2 border rounded focus:outline-none"
+            />
+            {santriList.length > 0 && (
+              <ul className="border rounded mt-1">
+                {santriList.map((santri) => (
+                  <li
+                    key={santri.nis}
+                    onClick={() => {
+                      setFormData({ ...formData, penerima_paket: santri.NIS });
+                    }}
+                    className="px-3 py-2 hover:bg-gray-200 cursor-pointer"
+                  >
+                    {santri.nama_santri}
+                  </li>
+                ))}
+              </ul>
+            )}
             <label className="pt-2" htmlFor="tanggal_diterima">
               Tanggal Diterima
             </label>

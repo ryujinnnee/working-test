@@ -95,8 +95,6 @@ const DashAll = () => {
     }
   };
 
-  
-
   useEffect(() => {
     fetchDashboardData();
     // getAssignmentData();
@@ -210,16 +208,7 @@ const DashAll = () => {
             <p className="text-lg">
               <div className="flex justify-between gap-3">
                 <div className="text-center flex items-center gap-1">
-                  <p className="font-bold">
-                    total
-                  </p>
-                  <p className="text-xs">today</p>
-                </div>
-                <div className="text-center flex items-center gap-1">
-                  <p className="font-bold">
-                    {dashboardData?.jumlah_disita}
-                  </p>
-                  <p className="text-xs">late</p>
+                  <p className="font-bold">{dashboardData?.jumlah_disita}</p>
                 </div>
               </div>
             </p>
@@ -264,7 +253,7 @@ const DashAll = () => {
         <div className="bg-white dark:bg-slate-600 dark:border-gray-400 h-auto w-1/3 max-md:w-full rounded-xl p-4 border-2 shadow-sm transition duration-300 transform">
           <div className="flex justify-between">
             <h3 className="text-palettxt text-center dark:text-white text-xl font-semibold">
-              List Paket 
+              List Paket
             </h3>
             <div className="w-7 h-7 p-1 grid place-items-center rounded-full bg-blue-200 backdrop-blur-sm bg-opacity-55">
               <span className="m-auto text-sm">
@@ -276,7 +265,7 @@ const DashAll = () => {
             <div className="relative my-5 w-full">
               <div className="flex border gap-1 border-gray-200 px-2 rounded-lg overflow-hidden">
                 <div
-                  className={`absolute top-1 left-1 w-1/2 h-[80%] bg-red-100 rounded-md transition-all duration-300`}
+                  className={`absolute top-1 left-1 w-1/2 h-[80%] bg-hoper rounded-md transition-all duration-300`}
                   style={{
                     transform:
                       activeTab === "cuti"
@@ -311,32 +300,24 @@ const DashAll = () => {
             <div className="oversafsfcxxwsfs overflow-y-auto max-h-52">
               {activeTab === "cuti" && (
                 <ul>
-                  {dashboardData?.perizinan?.details?.cuti?.length > 0 ? (
-                    dashboardData.perizinan.details.cuti.map(
-                      (detail, index) => (
-                        <div
-                          key={index}
-                          className="flex items-center gap-3 mt-2"
-                        >
-                          <div className="ikonsked w-11 h-11 p-1 m-0 border border-gray-400 text-center rounded-full grid place-items-center bg-palet1 dark:bg-gray-500">
-                            <span className="uppercase dark:text-gray-300">
-                              {detail.nama_pemohon
-                                .split(" ")
-                                .map((word) => word.charAt(0))
-                                .join("")}
-                            </span>
-                          </div>
-                          <div className="kfgxasdsd  flex-col">
-                            <strong className="dark:text-white capitalize">
-                              {detail.nama_pemohon}
-                            </strong>
-                            <p className="dark:text-white text-sm text-gray-600 capitalize">
-                              {detail.tipe}
-                            </p>
-                          </div>
+                  {dashboardData?.paket_terbaru?.length > 0 ? (
+                    dashboardData.paket_terbaru.map((detail, index) => (
+                      <div key={index} className="flex items-center gap-3 mt-2">
+                        <div className="ikonsked w-11 h-11 p-1 m-0 border border-gray-400 text-center rounded-full grid place-items-center bg-palet1 dark:bg-gray-500">
+                          <span className="uppercase dark:text-gray-300">
+                            ic
+                          </span>
                         </div>
-                      )
-                    )
+                        <div className="kfgxasdsd  flex-col">
+                          <strong className="dark:text-white capitalize">
+                            {detail.nama_paket}
+                          </strong>
+                          <p className="dark:text-white text-sm text-gray-600 capitalize">
+                            {detail.tipe}
+                          </p>
+                        </div>
+                      </div>
+                    ))
                   ) : (
                     <li>
                       {dashboardData?.perizinan?.details?.cuti
@@ -348,32 +329,24 @@ const DashAll = () => {
               )}
               {activeTab === "izin" && (
                 <ul>
-                  {dashboardData?.perizinan?.details?.izin?.length > 0 ? (
-                    dashboardData.perizinan.details.izin.map(
-                      (detail, index) => (
-                        <div
-                          key={index}
-                          className="flex items-center gap-3 mt-2"
-                        >
-                          <div className="ikonsked w-11 h-11 p-1 m-0 border border-gray-400 text-center rounded-full grid place-items-center bg-palet1 dark:bg-gray-500">
-                            <span className="uppercase dark:text-gray-300">
-                              {detail.nama_pemohon
-                                .split(" ")
-                                .map((word) => word.charAt(0))
-                                .join("")}
-                            </span>
-                          </div>
-                          <div className="kfgxasdsd  flex-col">
-                            <strong className="dark:text-white capitalize">
-                              {detail.nama_pemohon}
-                            </strong>
-                            <p className="dark:text-white text-sm text-gray-600 capitalize">
-                              {detail.tipe}
-                            </p>
-                          </div>
+                  {dashboardData?.paket_keluar?.length > 0 ? (
+                    dashboardData.paket_keluar.map((detail, index) => (
+                      <div key={index} className="flex items-center gap-3 mt-2">
+                        <div className="ikonsked w-11 h-11 p-1 m-0 border border-gray-400 text-center rounded-full grid place-items-center bg-palet1 dark:bg-gray-500">
+                          <span className="uppercase dark:text-gray-300">
+                            ic
+                          </span>
                         </div>
-                      )
-                    )
+                        <div className="kfgxasdsd  flex-col">
+                          <strong className="dark:text-white capitalize">
+                            {detail.nama_paket}
+                          </strong>
+                          <p className="dark:text-white text-sm text-gray-600 capitalize">
+                            {detail.tipe}
+                          </p>
+                        </div>
+                      </div>
+                    ))
                   ) : (
                     <li>
                       {dashboardData?.perizinan?.details?.izin

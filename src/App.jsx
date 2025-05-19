@@ -120,36 +120,44 @@ const MainLayout = () => {
   const [userRole, setUserRole] = useState(null);
  
   useEffect(() => {
-    const fetchUserStatus = async () => {
-      try {
-        const response = await axios.get(`${API_URL}${ENDPOINTS.ME}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        // setUserStatus(response.data.status);
-        setUserRole(response.data.id_role);
-        const userData = response.data;
-        localStorage.setItem("dtUser", JSON.stringify(userData));
-        console.table(response.data.id_role);
-      } catch (error) {
-        console.error("Failed to fetch user status", error);
-      }
-    };
-    if (token) {
-      fetchUserStatus();
-    } else {
+    // const fetchUserStatus = async () => {
+    //   try {
+    //     const response = await axios.get(`${API_URL}${ENDPOINTS.ME}`, {
+    //       headers: {
+    //         Authorization: `Bearer ${token}`,
+    //       },
+    //     });
+    //     // setUserStatus(response.data.status);
+    //     setUserRole(response.data.id_role);
+    //     const userData = response.data;
+    //     localStorage.setItem("dtUser", JSON.stringify(userData));
+    //     console.table(response.data.id_role);
+    //   } catch (error) {
+    //     console.error("Failed to fetch user status", error);
+    //   }
+    // };
+    if (!token) {
       navigate("/");
     }
+    // if (token) {
+    //   fetchUserStatus();
+    // } else {
+    //   navigate("/");
+    // }
   }, [token]);
 
   if (!token) {
     return <Guest2 />;
-  } else if (userRole == 1) {
+  }  else {
     return <Dashboard />;
-  } else {
-    return <DashSt />;
   }
+  // if (!token) {
+  //   return <Guest2 />;
+  // } else if (userRole == 1) {
+  //   return <Dashboard />;
+  // } else {
+  //   return <DashSt />;
+  // }
 };
 
 export default withSplashScreen(App);
