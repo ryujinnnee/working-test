@@ -130,6 +130,19 @@ class DashboardController extends Controller
             ], 500);
         }
     }
+    public function get5PaketKeluar()
+    {
+        try {
+            $pakets = Paket::where('status', 'diambil')->orderBy('updated_at', 'desc')->limit(5)->get();
+            return $pakets;
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal mengambil paket keluar.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
 
     public function getJumlahPaketBelumDiambil()
     {
@@ -190,6 +203,7 @@ class DashboardController extends Controller
                     'tahunan' => $this->getKategoriPaketMasukTahunan(),
                 ],
                 'paket_terbaru' => $this->get5PaketTerbaru(),
+                'paket_keluar' => $this->get5PaketKeluar(),
                 'jumlah_belum_diambil' => $this->getJumlahPaketBelumDiambil(),
                 'jumlah_disita' => $this->getJumlahPaketDisita(),
                 'jumlah_total' => $this->getAllSeluruhJumlahPaket(),
