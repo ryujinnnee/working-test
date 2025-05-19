@@ -1,10 +1,11 @@
 // api.js
-export const API_URL = 'http://127.0.0.1:8000/api'; 
+export const API_URL = 'https://dbtest.tahmidev.my.id/api'; 
 // export const API_URL = 'https://dbsf.friendz.id/api'; 
-export const URL_BASE = 'http://127.0.0.1:8000'; 
+export const URL_BASE = 'https://dbtest.tahmidev.my.id'; 
 
 export const ENDPOINTS = {
   USER: '/user',
+  ME: '/acc/me',
   USERALL: '/acc/alls',
   // USERPOST: '/regs/registerStaff',
   USERPUT: '/acc/update/{id}',

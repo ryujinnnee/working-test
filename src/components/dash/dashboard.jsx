@@ -404,7 +404,7 @@ const Dashboard = () => {
           <Outlet />
         </div>
         <footer className="text-sm font-light text-center mt-4 text-gray-400 dark:text-white">
-          <p>&copy;2024 All rights reserved. Develop by RahmatDev. </p>
+          <p>&copy;2025 All rights reserved. Develop by Tahmidev. </p>
         </footer>
       </div>
     </div>

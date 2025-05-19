@@ -48,11 +48,13 @@ const Login = () => {
       toast.success("Login successful!");
       setToken(response.data.access_token);
       setUserData(response.data.user);
-      
-      const rolee = response.data.user.role;
+      const userDt = response.data.user;
+      setUserData(userDt);
+      const rolee = response.data.user.role || [];
       setRoleData(rolee);
       localStorage.setItem("role", JSON.stringify(rolee));
-      
+      localStorage.setItem("dtUser", JSON.stringify(userDt));
+
       setIsLogin(true);
       
       setTimeout(() => navigate("/dashboard"), 1500);
